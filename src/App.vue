@@ -1,9 +1,35 @@
 <template>
   <div id="app">
+    <Header></Header>
 
+    <nav>
+      <router-link active-class="active" to="/login">登录</router-link>
+      <router-link active-class="active" to="/login"> 注册</router-link>
+    </nav>
+    <router-view></router-view>
   </div>
 </template>
+<script>
+import Header from '@/components/header'
 
+export default {
+
+  name: "App",
+  data() {
+    return {
+
+    };
+  },
+  components:{Header},
+  methods: {
+  },
+
+
+  mounted() {
+
+  },
+};
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
