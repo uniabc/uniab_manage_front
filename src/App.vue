@@ -2,10 +2,7 @@
   <div id="app">
     <Header></Header>
 
-    <nav>
-      <router-link active-class="active" to="/login">登录</router-link>
-      <router-link active-class="active" to="/login"> 注册</router-link>
-    </nav>
+
     <router-view></router-view>
   </div>
 </template>
