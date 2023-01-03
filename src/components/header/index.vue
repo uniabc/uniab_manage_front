@@ -25,7 +25,7 @@
 <!--              <a>{{$store.state.user.nickName}}</a>-->
 <!--              <a class="register" @click="logout">退出登录</a>-->
 <!--            </p>-->
-          </div>
+          </div>-->
           <div class="typeList">
             <router-link to="/center">我的订单</router-link>
             <router-link to="/shopcart">我的购物车</router-link>
