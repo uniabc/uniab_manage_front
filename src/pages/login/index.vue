@@ -1,21 +1,37 @@
 <template>
-  <div class="login-container">
-    <div class="left-container">
-      <div class="title"><span>登录</span></div>
-      <div class="input-container">
-        <input type="text" name="username" placeholder="用户名">
-        <input type="password" name="password" placeholder="密码">
+  <div class="main">
+    <div class="backImg"></div>
+    <div class="login">
+      <div class="title">
+        <span>Login管理系统</span>
       </div>
-      <div class="message-container">
-        <span>忘记密码</span>
+      <div class="list">
+        <el-input
+            prefix-icon="el-icon-user"
+            placeholder="请输入账号"
+            v-model="dataFrom.username"
+        ></el-input>
       </div>
-    </div>
-    <div class="right-container">
-      <div class="regist-container">
-        <span class="regist">注册</span>
+      <div class="list">
+        <el-input
+            prefix-icon="el-icon-unlock"
+            placeholder="请输入密码"
+            show-password
+            v-model="dataFrom.password"
+        ></el-input>
       </div>
-      <div class="action-container">
-        <span>提交</span>
+      <div class="list">
+        <el-input
+            prefix-icon="el-icon-document-checked"
+            placeholder="请输入验证码"
+            v-model="dataFrom.code"
+        ></el-input>
+        <div class="getCode">
+          <span @click="getCode">{{ dataFrom.code }}</span>
+        </div>
+      </div>
+      <div class="btn">
+        <button @click="loginClick">登录</button>
       </div>
     </div>
   </div>
@@ -25,112 +41,125 @@
 <script>
 export default {
   name: "Login",
+  data() {
+    return {
+      dataFrom: {
+        username: "xq",
+        password: "xq123",
+        code: "",
+      },
+    };
+  },
+  mounted() {
+    this.getCode();
+  },
+  methods: {
+    loginClick() {
+      if (
+          this.dataFrom.username == "xq" &&
+          this.dataFrom.password == "xq123" &&
+          this.dataFrom.code == this.dataFrom.code
+      ) {
+        localStorage.setItem("username", this.dataFrom.username);
+        localStorage.setItem("password", this.dataFrom.password);
+        localStorage.setItem("code", this.dataFrom.code);
+        this.$router.push("./index");
+      }
+    },
+    getCode() {
+      var str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+      var arr = str.split("");
+      var oldStr = "";
+      for (var i = 0; i < 4; i++) {
+        var n = Math.floor(Math.random() * arr.length);
+        oldStr += arr[n];
+      }
+      this.dataFrom.code = oldStr.substring(oldStr.length - 4);
+    },
+  },
+
 }
 </script>
 
 <style scoped>
-* {
-  padding: 0;
-  margin: 0;
-}
-html {
-  height: 100%;
-}
-body {
-  background-image: linear-gradient(to bottom right, rgb(114, 135, 254), rgb(130, 88, 186));
-}
-.login-container {
-  width: 600px;
-  height: 315px;
-  margin: 0 auto;
-  margin-top: 10%;
-  border-radius: 15px;
-  box-shadow: 0 10px 50px 0px rbg(59, 45, 159);
-  background-color: rgb(95, 76, 194);
-}
-.left-container {
-  display: inline-block;
-  width: 330px;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
-  padding: 60px;
-  background-image: linear-gradient(to bottom right, rgb(118, 76, 163), rgb(92, 103, 211));
-}
-.title {
-  color: #fff;
-  font-size: 18px;
-  font-weight: 200;
-}
-.title span {
-  border-bottom: 3px solid rgb(237, 221, 22);
-}
-.input-container {
-  padding: 20px 0;
-}
-input {
-  border: 0;
-  background: none;
-  outline: none;
-  color: #fff;
-  margin: 20px 0;
-  display: block;
+.backImg {
+  background-color: #2c3e50;
+  background-size: 100% 100%;
+  position: fixed;
   width: 100%;
-  padding: 5px 0;
-  transition: .2s;
-  border-bottom: 1px solid rgb(199, 191, 219);
+  height: 100%;
+  left: 0;
+  top: 0;
 }
-input:hover {
-  border-bottom-color: #fff;
-}
-::-webkit-input-placeholder {
-  color: rgb(199, 191, 219);
-}
-.message-container {
-  font-size: 14px;
-  transition: .2s;
-  color: rgb(199, 191, 219);
-  cursor: pointer;
-}
-.message-container:hover {
-  color: #fff;
-}
-.right-container {
-  width: 145px;
-  display: inline-block;
-  height: calc(100% - 120px);
-  vertical-align: top;
-  padding: 60px 0;
-}
-.regist-container {
-  text-align: center;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 200;
-}
-.regist-container span {
-  border-bottom: 3px solid rgb(237, 221, 22);
-}
-.action-container {
-  font-size: 10px;
-  color: #fff;
-  text-align: center;
-  position: relative;
-  top: 200px;
-}
-.action-container span {
-  border: 1px solid rgb(237, 221, 22);
-  padding: 10px;
-  display: inline;
-  line-height: 20px;
-  border-radius: 20px;
+.login {
   position: absolute;
-  bottom: 10px;
-  left: calc(72px - 20px);
-  transition: .2s;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #ccc;
+  background: #fff;
+  width: 20%;
+  padding: 20px 20px 25px 20px;
+}
+.login .title {
+  text-align: center;
+  padding-bottom: 5px;
+}
+.login .title span {
+  font-size: 30px;
+  color: #000;
+}
+
+.login .list {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+}
+.login .list input {
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  color: #999;
+  border: 1px solid #bdbdbd;
+  font-size: 14px;
+  line-height: 35px;
+  padding: 0 10px;
+  display: block;
+  box-sizing: border-box;
+  flex: 7;
+}
+
+.login .list .getCode span {
+  font-size: 20px;
+  background: #f5f7fa;
+  color: #777;
+  border-radius: 4px;
+  line-height: 38px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  margin-left: 10px;
+  width: 80px;
+  text-align: center;
+  user-select: none;
   cursor: pointer;
 }
-.action-container span:hover {
-  background-color: rgb(237, 221, 22);
-  color: rgb(95, 76, 194);
+
+.btn {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 5px;
 }
+.btn button {
+  font-size: 13px;
+  color: #fff;
+  background: #46b5ff;
+  outline: none;
+  border: none;
+  line-height: 35px;
+  padding: 0 20px;
+  display: inline-block;
+  flex: 1;
+  cursor: pointer;
+}
+
 </style>
