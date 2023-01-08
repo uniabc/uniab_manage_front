@@ -4,19 +4,19 @@
 
 
       <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="info">
+        <el-menu-item index="login">
           基本信息
         </el-menu-item>
-        <el-menu-item index="organizationmanage">
+        <el-menu-item index="login">
           组织管理
         </el-menu-item>
-        <el-menu-item index="systemmanage">
+        <el-menu-item index="login">
          系统管理
         </el-menu-item>
         <el-menu-item index="login">
           登录
         </el-menu-item>
-        <el-menu-item index="register">
+        <el-menu-item index="login">
           注册
         </el-menu-item>
       </el-menu>
